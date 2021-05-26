@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/bestPetsFragment"
+        android:title="pets"
+        android:icon="@drawable/ic_launcher_background"
+        />
+    <item
+        android:id="@+id/votingFragment"
+        android:title="voting"
+        android:icon="@drawable/ic_launcher_background"
+        />
+    <item
+        android:id="@+id/profileFragment"
+        android:title="profile"
+        android:icon="@drawable/ic_launcher_background"
+        />
+</menu>

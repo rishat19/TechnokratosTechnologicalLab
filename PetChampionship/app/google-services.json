@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "619433720015",
+    "project_id": "petchampionship",
+    "storage_bucket": "petchampionship.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:619433720015:android:ad5c5e7830c0f36f431fba",
+        "android_client_info": {
+          "package_name": "ru.kpfu.itis.ganiev.petchampionship"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "619433720015-r01jci14nnifjunca7ambt85lr6nrvju.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGfVORczK_tabj6A6vg2F-0zAZlRdrwoc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "619433720015-r01jci14nnifjunca7ambt85lr6nrvju.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -28,7 +28,7 @@
     <fragment
         android:id="@+id/signUpFragment"
         android:name="ru.kpfu.itis.ganiev.petchampionship.presentation.signup.SignUpFragment"
-        android:label="SignUpFragment"/>
+        android:label="SignUpFragment" />
 
     <fragment
         android:id="@+id/profileFragment"
@@ -38,12 +38,33 @@
     <fragment
         android:id="@+id/bestPetsFragment"
         android:name="ru.kpfu.itis.ganiev.petchampionship.presentation.pets.list.BestPetsFragment"
-        android:label="BestPetsFragment" />
+        android:label="BestPetsFragment">
+        <action
+            android:id="@+id/action_bestPetsFragment_to_petDetailsFragment"
+            app:destination="@id/petDetailsFragment" />
+        <action
+            android:id="@+id/action_bestPetsFragment_to_addPetFragment"
+            app:destination="@id/addPetFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/votingFragment"
-        android:name="ru.kpfu.itis.ganiev.petchampionship.presentation.voting.VotingFragment"
+        android:name="ru.kpfu.itis.ganiev.petchampionship.presentation.pets.voting.VotingFragment"
         android:label="VotingFragment" />
+
+    <fragment
+        android:id="@+id/petDetailsFragment"
+        android:name="ru.kpfu.itis.ganiev.petchampionship.presentation.pets.details.PetDetailsFragment"
+        android:label="PetDetailsFragment">
+        <argument
+            android:name="petId"
+            app:argType="string"
+            app:nullable="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/addPetFragment"
+        android:name="ru.kpfu.itis.ganiev.petchampionship.presentation.addpet.AddPetFragment"
+        android:label="AddPetFragment" />
 
 
 </navigation>

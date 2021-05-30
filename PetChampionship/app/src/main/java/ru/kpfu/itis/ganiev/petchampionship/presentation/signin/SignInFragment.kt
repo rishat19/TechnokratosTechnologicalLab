@@ -6,29 +6,23 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import com.example.gargabesorter.utils.ViewModelProviderFactory
+import androidx.lifecycle.observe
 import ru.kpfu.itis.ganiev.petchampionship.ApplicationDelegate
-import ru.kpfu.itis.ganiev.petchampionship.presentation.app.databinding.FragmentSignInBinding
-
+import ru.kpfu.itis.ganiev.petchampionship.presentation.common.databinding.FragmentSignInBinding
+import ru.kpfu.itis.ganiev.petchampionship.presentation.router.Router
 import javax.inject.Inject
 
 class SignInFragment : Fragment() {
 
     @Inject
-    lateinit var viewModelFactory: ViewModelProviderFactory
-    private lateinit var userViewModel: SignInViewModel
+    lateinit var userViewModel: SignInViewModel
 
     private var _binding: FragmentSignInBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        ApplicationDelegate.screenComponent().inject(this)
+        ApplicationDelegate.screenComponent().create(activity as Router).inject(this)
         super.onCreate(savedInstanceState)
-        userViewModel = ViewModelProvider(
-            viewModelStore,
-            viewModelFactory
-        ).get(SignInViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -53,6 +47,9 @@ class SignInFragment : Fragment() {
                     etEmail.text.toString(),
                     etPassword.text.toString()
                 )
+            }
+            btnBack.setOnClickListener {
+                userViewModel.backPressed()
             }
         }
     }

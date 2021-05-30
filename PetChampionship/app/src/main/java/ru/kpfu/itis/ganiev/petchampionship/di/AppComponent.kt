@@ -4,6 +4,7 @@ import android.app.Application
 import dagger.BindsInstance
 import dagger.Component
 import ru.kpfu.itis.ganiev.petchampionship.di.modules.*
+import ru.kpfu.itis.ganiev.petchampionship.presentation.di.ScreenComponent
 import javax.inject.Singleton
 
 @Singleton

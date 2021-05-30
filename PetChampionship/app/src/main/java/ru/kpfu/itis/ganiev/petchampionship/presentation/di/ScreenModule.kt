@@ -1,11 +1,13 @@
-package ru.kpfu.itis.ganiev.petchampionship.di.modules
+package ru.kpfu.itis.ganiev.petchampionship.presentation.di
 
 import androidx.lifecycle.ViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
-import ru.kpfu.itis.ganiev.petchampionship.di.ViewModelKey
-import ru.kpfu.itis.ganiev.petchampionship.presentation.authorization.AuthorizationViewModel
+import ru.kpfu.itis.ganiev.petchampionship.presentation.addpet.AddPetViewModel
+import ru.kpfu.itis.ganiev.petchampionship.presentation.common.AuthorizationViewModel
+import ru.kpfu.itis.ganiev.petchampionship.presentation.pets.details.PetDetailsViewModel
+import ru.kpfu.itis.ganiev.petchampionship.presentation.pets.list.PetsViewModel
 import ru.kpfu.itis.ganiev.petchampionship.presentation.profile.ProfileViewModel
 import ru.kpfu.itis.ganiev.petchampionship.presentation.signin.SignInViewModel
 import ru.kpfu.itis.ganiev.petchampionship.presentation.signup.SignUpViewModel
@@ -32,5 +34,19 @@ interface ScreenModule {
     @ViewModelKey(ProfileViewModel::class)
     fun provideProfileViewModel(profileViewModel: ProfileViewModel): ViewModel
 
+    @Binds
+    @IntoMap
+    @ViewModelKey(PetsViewModel::class)
+    fun provideBestPetsViewModel(petsViewModel: PetsViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(PetDetailsViewModel::class)
+    fun providePetDetailsViewMode(bestPetsViewModel: PetsViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(AddPetViewModel::class)
+    fun provideAddPetVM(addPetViewModel: AddPetViewModel): ViewModel
 
 }

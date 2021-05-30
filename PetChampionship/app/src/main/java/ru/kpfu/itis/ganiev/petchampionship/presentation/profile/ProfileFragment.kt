@@ -6,10 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.observe
 import com.example.gargabesorter.utils.ViewModelProviderFactory
 import ru.kpfu.itis.ganiev.petchampionship.ApplicationDelegate
 import ru.kpfu.itis.ganiev.petchampionship.domain.model.User
-import ru.kpfu.itis.ganiev.petchampionship.presentation.app.databinding.FragmentProfileBinding
+import ru.kpfu.itis.ganiev.petchampionship.presentation.common.databinding.FragmentProfileBinding
+import ru.kpfu.itis.ganiev.petchampionship.presentation.router.Router
 import javax.inject.Inject
 
 class ProfileFragment : Fragment() {
@@ -23,7 +25,7 @@ class ProfileFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        ApplicationDelegate.screenComponent().inject(this)
+        ApplicationDelegate.screenComponent().create(activity as Router).inject(this)
         userViewModel = ViewModelProvider(
             viewModelStore,
             viewModelFactory
@@ -61,7 +63,6 @@ class ProfileFragment : Fragment() {
             it?.let { user ->
                 bindUser(user)
             }
-
         }
     }
 

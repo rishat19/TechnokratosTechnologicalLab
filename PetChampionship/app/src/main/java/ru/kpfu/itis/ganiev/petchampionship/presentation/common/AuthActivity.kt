@@ -1,9 +1,7 @@
-package ru.kpfu.itis.ganiev.petchampionship.presentation.authorization
+package ru.kpfu.itis.ganiev.petchampionship.presentation.common
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
@@ -11,11 +9,12 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.gargabesorter.utils.ViewModelProviderFactory
 import ru.kpfu.itis.ganiev.petchampionship.ApplicationDelegate
-import ru.kpfu.itis.ganiev.petchampionship.presentation.app.R
-import ru.kpfu.itis.ganiev.petchampionship.presentation.app.databinding.ActivityAuthBinding
+import ru.kpfu.itis.ganiev.petchampionship.presentation.common.databinding.ActivityAuthBinding
+import ru.kpfu.itis.ganiev.petchampionship.presentation.pets.list.BestPetsFragmentDirections
+import ru.kpfu.itis.ganiev.petchampionship.presentation.router.Router
 import javax.inject.Inject
 
-class AuthActivity : AppCompatActivity() {
+class AuthActivity : AppCompatActivity(), Router {
 
     private lateinit var binding: ActivityAuthBinding
 
@@ -26,58 +25,69 @@ class AuthActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        ApplicationDelegate.screenComponent().inject(this)
         binding = ActivityAuthBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setViewModel()
+        ApplicationDelegate.screenComponent().create(this).inject(this)
         setNavigationController()
-        initLiveDataListeners()
+        setViewModel()
     }
 
-    private fun setViewModel(){
+    private fun setViewModel() {
         viewModel = ViewModelProvider(
             viewModelStore,
             viewModelFactory
         ).get(AuthorizationViewModel::class.java)
     }
 
-    private fun setNavigationController(){
+    private fun setNavigationController() {
         navController = findNavController(R.id.hostAuthFragment)
         binding.bnvMenu.setupWithNavController(navController)
+        binding.bnvMenu.setOnNavigationItemReselectedListener { }
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            Log.d("RISHAT", (destination.id == R.id.authenticationFragment).toString())
             when (destination.id) {
                 R.id.signInFragment -> hideBottomNavigation()
                 R.id.signUpFragment -> hideBottomNavigation()
+                R.id.authenticationFragment -> hideBottomNavigation()
                 else -> showBottomNavigation()
             }
         }
     }
 
-    private fun hideBottomNavigation(){
+    private fun hideBottomNavigation() {
         binding.bnvMenu.visibility = View.GONE
     }
 
-    private fun showBottomNavigation(){
+    private fun showBottomNavigation() {
         binding.bnvMenu.visibility = View.VISIBLE
     }
 
-    private fun initLiveDataListeners() {
-        viewModel.isUserAuthenticated().observe(this) {
-            Log.d("RISHAT", "IS AUTHENTICATED: $it")
-            if (it) {
-                onAuthenticated()
-            } else {
-                navigateToAuthentication()
-            }
-        }
+    override fun navigateToAuthentication() {
+        navController.navigate(R.id.authenticationFragment)
     }
 
-    private fun navigateToAuthentication() {
-        findNavController(R.id.hostAuthFragment).navigate(R.id.authenticationFragment)
-    }
-
-    private fun onAuthenticated() {
+    override fun navigateToProfile() {
         navController.navigate(R.id.profileFragment)
+    }
+
+    override fun navigateBestPetsToPetsDetails(petId: String) {
+        val action = BestPetsFragmentDirections.actionBestPetsFragmentToPetDetailsFragment(petId)
+        navController.navigate(action)
+    }
+
+    override fun back() {
+        navController.navigateUp()
+    }
+
+    override fun navigateToAddPet() {
+        val action = BestPetsFragmentDirections.actionBestPetsFragmentToAddPetFragment()
+        navController.navigate(action)
+    }
+
+    override fun navigateToSignInFragment() {
+        navController.navigate(R.id.signInFragment)
+    }
+
+    override fun navigateToSignUpFragment() {
+        navController.navigate(R.id.signUpFragment)
     }
 }

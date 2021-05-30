@@ -4,14 +4,15 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import org.joda.time.DateTime
-import ru.kpfu.itis.ganiev.petchampionship.domain.model.Nomination
+import ru.kpfu.itis.ganiev.petchampionship.domain.model.VoteStatus
 
 @Entity(
-//    foreignKeys = [ForeignKey(
-//        entity = NominationLocal::class,
-//        childColumns = ["nominationId"],
-//        parentColumns = ["id"]
-//    )]
+    foreignKeys = [ForeignKey(
+        entity = NominationLocal::class,
+        childColumns = ["nominationId"],
+        parentColumns = ["id"],
+        onDelete = ForeignKey.NO_ACTION
+    )]
 )
 data class PetLocal(
     @PrimaryKey
@@ -19,8 +20,10 @@ data class PetLocal(
     val petName: String,
     val ownerId: String,
     val ownerName: String,
-    val nominationId: String,
+    val voteStatus: VoteStatus,
+    val nominationId: String?,
     val positiveVotes: Int,
     val negativeVotes: Int,
- //   val publicationDate: DateTime
+    val publicationDate: DateTime,
+    val imageUrl: String? = null
 )

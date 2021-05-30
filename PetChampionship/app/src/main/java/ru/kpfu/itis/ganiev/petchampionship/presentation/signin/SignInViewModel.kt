@@ -7,12 +7,14 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.kpfu.itis.ganiev.petchampionship.domain.model.User
 import ru.kpfu.itis.ganiev.petchampionship.domain.interactors.AppInteractor
+import ru.kpfu.itis.ganiev.petchampionship.presentation.router.Router
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
 class SignInViewModel @Inject constructor(
     private val appUseCase: AppInteractor,
-    private val coroutineContext: CoroutineContext
+    private val coroutineContext: CoroutineContext,
+    private val router: Router
 ) : ViewModel() {
 
     private val errorSignInLiveData: MutableLiveData<String> = MutableLiveData()
@@ -33,5 +35,9 @@ class SignInViewModel @Inject constructor(
                 errorSignInLiveData.postValue(e.message)
             }
         }
+    }
+
+    fun backPressed() {
+        router.back()
     }
 }

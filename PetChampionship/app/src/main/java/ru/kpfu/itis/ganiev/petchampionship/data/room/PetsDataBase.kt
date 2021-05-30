@@ -14,7 +14,7 @@ import ru.kpfu.itis.ganiev.petchampionship.data.room.model.PetLocal
     version = 1,
     exportSchema = false
 )
-//@TypeConverters(DateTimeConverter::class)
+@TypeConverters(Converter::class)
 abstract class PetsDataBase : RoomDatabase() {
     abstract val petsDao: PetsDao
 }

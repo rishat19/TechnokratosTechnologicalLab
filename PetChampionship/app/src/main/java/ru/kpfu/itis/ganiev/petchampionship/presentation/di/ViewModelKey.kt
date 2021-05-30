@@ -1,4 +1,4 @@
-package ru.kpfu.itis.ganiev.petchampionship.di
+package ru.kpfu.itis.ganiev.petchampionship.presentation.di
 
 import androidx.lifecycle.ViewModel
 import dagger.MapKey

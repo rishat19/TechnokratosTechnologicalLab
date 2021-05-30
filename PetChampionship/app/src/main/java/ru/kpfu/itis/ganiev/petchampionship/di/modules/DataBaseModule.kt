@@ -2,7 +2,6 @@ package ru.kpfu.itis.ganiev.petchampionship.di.modules
 
 import android.content.Context
 import androidx.room.Room
-import androidx.room.RoomDatabase
 import dagger.Module
 import dagger.Provides
 import ru.kpfu.itis.ganiev.petchampionship.data.room.PetsDao
@@ -13,11 +12,11 @@ import javax.inject.Singleton
 class DataBaseModule {
     @Provides
     @Singleton
-    fun provideInstance(context: Context) = Room.databaseBuilder(
+    fun provideInstance(context: Context): PetsDataBase = Room.databaseBuilder(
         context,
         PetsDataBase::class.java,
         "pets"
-    )
+    ).build()
 
     @Provides
     @Singleton

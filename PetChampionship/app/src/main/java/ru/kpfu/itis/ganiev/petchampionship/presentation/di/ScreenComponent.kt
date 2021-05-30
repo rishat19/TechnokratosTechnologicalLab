@@ -1,17 +1,22 @@
-package ru.kpfu.itis.ganiev.petchampionship.di
+package ru.kpfu.itis.ganiev.petchampionship.presentation.di
 
+import dagger.BindsInstance
 import dagger.Subcomponent
-import ru.kpfu.itis.ganiev.petchampionship.di.modules.ScreenModule
-import ru.kpfu.itis.ganiev.petchampionship.presentation.authorization.AuthActivity
+import ru.kpfu.itis.ganiev.petchampionship.presentation.addpet.AddPetFragment
 import ru.kpfu.itis.ganiev.petchampionship.presentation.authorization.AuthenticationFragment
+import ru.kpfu.itis.ganiev.petchampionship.presentation.common.AuthActivity
+import ru.kpfu.itis.ganiev.petchampionship.presentation.pets.details.PetDetailsFragment
 import ru.kpfu.itis.ganiev.petchampionship.presentation.pets.list.BestPetsFragment
+import ru.kpfu.itis.ganiev.petchampionship.presentation.pets.voting.VotingFragment
 import ru.kpfu.itis.ganiev.petchampionship.presentation.profile.ProfileFragment
+import ru.kpfu.itis.ganiev.petchampionship.presentation.router.Router
 import ru.kpfu.itis.ganiev.petchampionship.presentation.signin.SignInFragment
 import ru.kpfu.itis.ganiev.petchampionship.presentation.signup.SignUpFragment
-import ru.kpfu.itis.ganiev.petchampionship.presentation.voting.VotingFragment
 
 @Subcomponent(modules = [ScreenModule::class])
 interface ScreenComponent {
+
+    fun inject(votingFragment: VotingFragment)
 
     fun inject(authFragment: AuthenticationFragment)
 
@@ -25,12 +30,14 @@ interface ScreenComponent {
 
     fun inject(bestPetsFragment: BestPetsFragment)
 
-    fun inject()
+    fun inject(petsDetailsFragment: PetDetailsFragment)
 
-    fun inject(votingFragment: VotingFragment)
+    fun inject(addPetFragment: AddPetFragment)
 
     @Subcomponent.Factory
     interface Factory {
-        fun create(): ScreenComponent
+        fun create(
+            @BindsInstance router: Router
+        ): ScreenComponent
     }
 }

@@ -7,26 +7,25 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.observe
 import com.example.gargabesorter.utils.ViewModelProviderFactory
 import ru.kpfu.itis.ganiev.petchampionship.ApplicationDelegate
-import ru.kpfu.itis.ganiev.petchampionship.presentation.app.databinding.FragmentSignUpBinding
+import ru.kpfu.itis.ganiev.petchampionship.presentation.common.databinding.FragmentSignUpBinding
+import ru.kpfu.itis.ganiev.petchampionship.presentation.router.Router
 import javax.inject.Inject
 
 class SignUpFragment : Fragment() {
+
     @Inject
-    lateinit var viewModelFactory: ViewModelProviderFactory
-    private lateinit var userViewModel: SignUpViewModel
+    lateinit var userViewModel: SignUpViewModel
 
     private var _binding: FragmentSignUpBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        ApplicationDelegate.screenComponent().inject(this)
+        ApplicationDelegate.screenComponent().create(activity as Router).inject(this)
         super.onCreate(savedInstanceState)
-        userViewModel = ViewModelProvider(
-            viewModelStore,
-            viewModelFactory
-        ).get(SignUpViewModel::class.java)
+
     }
 
     override fun onCreateView(
@@ -53,6 +52,9 @@ class SignUpFragment : Fragment() {
                     etPassword.text.toString()
                 )
             }
+            btnBack.setOnClickListener {
+                userViewModel.backPressed()
+            }
         }
     }
 
@@ -61,8 +63,5 @@ class SignUpFragment : Fragment() {
             Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
         }
     }
-
-
-
 
 }

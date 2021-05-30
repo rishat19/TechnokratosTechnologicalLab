@@ -1,18 +1,28 @@
 package ru.kpfu.itis.ganiev.petchampionship.presentation.authorization
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
-import ru.kpfu.itis.ganiev.petchampionship.presentation.app.R
-import ru.kpfu.itis.ganiev.petchampionship.presentation.app.databinding.FragmentAuthenticationBinding
+import ru.kpfu.itis.ganiev.petchampionship.ApplicationDelegate
+import ru.kpfu.itis.ganiev.petchampionship.presentation.common.databinding.FragmentAuthenticationBinding
+import ru.kpfu.itis.ganiev.petchampionship.presentation.router.Router
+import javax.inject.Inject
 
 class AuthenticationFragment : Fragment() {
 
     private var _binding: FragmentAuthenticationBinding? = null
     private val binding get() = _binding!!
+
+    @Inject
+    lateinit var router: Router
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        ApplicationDelegate.screenComponent().create(activity as Router).inject(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,14 +42,13 @@ class AuthenticationFragment : Fragment() {
         initView()
     }
 
-    private fun initView(){
-        with(binding){
-            val navController = findNavController()
+    private fun initView() {
+        with(binding) {
             btnSignUp.setOnClickListener {
-                navController.navigate(R.id.action_authenticationFragment_to_signUpFragment)
+                router.navigateToSignUpFragment()
             }
             btnLogIn.setOnClickListener {
-                navController.navigate(R.id.action_authenticationFragment_to_signInFragment)
+                router.navigateToSignInFragment()
             }
         }
     }
